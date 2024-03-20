@@ -1,0 +1,42 @@
+plugins {
+	id 'org.gretty' version '3.0.9'
+}
+apply plugin: 'java'
+apply plugin: 'war'
+apply plugin: 'idea'
+
+// JDK 11
+sourceCompatibility = 11
+targetCompatibility = 11
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+	compileOnly 'javax.servlet:javax.servlet-api:4.0.1'
+	implementation 'javax.servlet:jstl:1.2'
+	implementation 'org.springframework:spring-webmvc:5.2.22.RELEASE'
+	implementation 'org.webjars:bootstrap:5.2.0'
+	implementation "org.springframework:spring-context:5.1.5.RELEASE"
+    implementation "org.springframework:spring-orm:5.1.5.RELEASE"
+    implementation "org.springframework.data:spring-data-jpa:2.1.5.RELEASE"
+    implementation "org.hibernate:hibernate-core:5.4.1.Final"
+   // runtimeOnly "org.apache.logging.log4j:log4j-api:2.6.1"
+   // runtimeOnly "org.apache.logging.log4j:log4j-core:2.6.1"
+    runtimeOnly "mysql:mysql-connector-java:8.0.14"
+	testImplementation 'org.junit.jupiter:junit-jupiter-engine:5.9.0'
+	testImplementation 'org.springframework:spring-test:5.2.22.RELEASE'
+	testImplementation 'org.hamcrest:hamcrest-core:2.2'
+}
+
+gretty {
+	httpPort = 8080
+	contextPath = '/'
+	//servletContainer = 'jetty9.4'
+	servletContainer = 'tomcat9'
+}
+
+test {
+	useJUnitPlatform()
+}
